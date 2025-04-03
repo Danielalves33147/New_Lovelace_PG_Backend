@@ -7,9 +7,7 @@ const { Pool } = pkg;
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false, // Necessário para evitar erros SSL no Railway
-  },
+  ssl: false // 🔥 Aqui está o segredo para PostgreSQL local
 });
 
 export default pool;

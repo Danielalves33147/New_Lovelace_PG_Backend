@@ -56,21 +56,20 @@ app.post("/login", async (req, res) => {
 
         const user = result.rows[0];
 
-        if (!user.ativo) {
-            return res.status(403).json({ error: "Conta desativada. Entre em contato com o suporte." });
-        }
 
-        // ✅ Agora retornando os dados no formato esperado pelo frontend
+
         res.status(200).json({
             message: "Login realizado com sucesso!",
             type: "success",
-            data: user,  // 🟢 Envia os dados do usuário dentro da chave `data`
+            data: user,
         });
 
     } catch (err) {
+        console.error("❌ Erro no login:", err); // 👈 Coloque isso aqui
         res.status(500).json({ error: "Erro interno no servidor." });
     }
 });
+
 
 // 🔹 Buscar Usuário pelo ID
 app.get("/users/:id", async (req, res) => {
@@ -203,7 +202,8 @@ app.delete("/activities/:id", async (req, res) => {
 // 🔹 Buscar Todas Atividades do Usuário Logado
 app.get("/activities", async (req, res) => {
     try {
-        const { userId } = req.query; // Obtendo o userId da requisição
+        const { userId } = req.query;
+        console.log("🔍 Requisição de atividades para userId:", userId); // <- AQUI
 
         if (!userId) {
             return res.status(400).json({ error: "Usuário não autenticado." });
@@ -223,6 +223,7 @@ app.get("/activities", async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
+
 
 // 🔹 Buscar atividade pelo ID (incluindo perguntas associadas)
 app.get("/activities/id/:id", async (req, res) => {
