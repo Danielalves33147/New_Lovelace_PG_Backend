@@ -119,7 +119,7 @@ app.post("/activities", async (req, res) => {
             }
         }
 
-        console.log("✅ Atividade criada:", activity);
+        //console.log("✅ Atividade criada:", activity);
         res.status(201).json({ message: "Atividade criada!", activity });
 
     } catch (err) {
@@ -195,7 +195,7 @@ app.delete("/activities/:id", async (req, res) => {
         // Exclui a atividade
         await pool.query("DELETE FROM activities WHERE id = $1", [id]);
 
-        console.log(`✅ Atividade ${id} deletada por usuário ${user_id}`);
+        //console.log(`✅ Atividade ${id} deletada por usuário ${user_id}`);
         res.status(200).json({ message: "Atividade deletada com sucesso." });
 
     } catch (err) {
@@ -297,7 +297,7 @@ app.get("/responses/activity/:activity_id", async (req, res) => {
             response.answers = answersResult.rows.map(a => a.text);
         }
 
-        console.log("✅ Respostas encontradas para PDF:", responses);
+        //console.log("✅ Respostas encontradas para PDF:", responses);
         res.status(200).json(responses);
 
     } catch (err) {
@@ -345,7 +345,7 @@ app.post("/responses", async (req, res) => {
     const { activityId, user, answers } = req.body;
 
     try {
-        console.log("📤 Recebendo resposta:", req.body);
+        //console.log("📤 Recebendo resposta:", req.body);
 
         if (!user || isNaN(user)) {
             return res.status(400).json({ error: "ID de usuário inválido." });
@@ -370,7 +370,7 @@ app.post("/responses", async (req, res) => {
             );
         }
 
-        console.log("✅ Respostas salvas com sucesso:", { responseId, user });
+        //console.log("✅ Respostas salvas com sucesso:", { responseId, user });
         res.status(201).json({ message: "Respostas enviadas!", responseId });
 
     } catch (err) {
